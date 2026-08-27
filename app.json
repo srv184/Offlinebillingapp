@@ -6,11 +6,6 @@
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "assetBundlePatterns": ["**/*"],
-    "plugins": [
-      "expo-sqlite",
-      "expo-secure-store",
-      "expo-print"
-    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.yourcompany.offlinebilling"
