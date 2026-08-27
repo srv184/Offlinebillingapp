@@ -1,0 +1,33 @@
+const expoModule = {
+  documentDirectory: '',
+  cacheDirectory: '',
+  getInfoAsync: async () => ({ exists: false }),
+  makeDirectoryAsync: async () => undefined,
+  deleteAsync: async () => undefined,
+  moveAsync: async () => undefined,
+  copyAsync: async () => undefined,
+  readAsStringAsync: async () => '',
+  writeAsStringAsync: async () => undefined,
+  downloadAsync: async () => ({ uri: '' }),
+  getRandomBytesAsync: async () => new Uint8Array(16),
+  digestStringAsync: async () => 'mocked-hash',
+  openDatabaseAsync: async () => ({
+    execAsync: async () => undefined,
+    closeAsync: async () => undefined,
+    withTransactionAsync: async (task) => task(),
+    getFirstAsync: async () => null,
+    getAllAsync: async () => [],
+    runAsync: async () => ({ rowsAffected: 0 }),
+  }),
+  printToFileAsync: async () => ({ uri: '' }),
+  shareAsync: async () => undefined,
+  getDocumentAsync: async () => ({ uri: '' }),
+  setItemAsync: async () => undefined,
+  getItemAsync: async () => null,
+  deleteItemAsync: async () => undefined,
+  isAvailableAsync: async () => true,
+  getApplicationName: async () => 'offline-billing-app',
+  addDatabaseChangeListener: () => ({ remove: () => undefined }),
+};
+
+module.exports = expoModule;

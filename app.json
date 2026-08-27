@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Offline Billing",
+    "slug": "offline-billing-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "assetBundlePatterns": ["**/*"],
+    "plugins": [
+      "expo-sqlite",
+      "expo-secure-store",
+      "expo-print"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yourcompany.offlinebilling"
+    },
+    "android": {
+      "package": "com.yourcompany.offlinebilling",
+      "permissions": []
+    }
+  }
+}
