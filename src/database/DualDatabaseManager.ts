@@ -88,7 +88,7 @@ export class DualDatabaseManager {
       // non-alarming banner. The user's data is never inaccessible.
     } else {
       throw new Error(
-        'Both primary and secondary databases failed integrity checks. Restore from a backup file in Settings > Restore Data.'
+        `Both databases failed. Primary: ${primaryHealth.reason ?? 'unknown'}. Secondary: ${secondaryHealth.reason ?? 'unknown'}. Restore from a backup file in Settings > Restore Data.`
       );
     }
 
@@ -101,10 +101,16 @@ export class DualDatabaseManager {
     try {
       await conn.open();
       await conn.runMigrations();
-    } catch {
-      // Leave it -- checkHealth() will subsequently report it as unhealthy
-      // and the caller decides how to react. We don't want an exception
-      // here to crash app startup.
+    } catch (err) {
+      // Preserve the error message on the connection so health checks
+      // can surface why open/migrate failed. checkHealth() will then
+      // report it as unhealthy and the caller decides how to react.
+      // We still don't want an exception here to crash app startup.
+      try {
+        conn.lastError = err instanceof Error ? err.message : String(err);
+      } catch {
+        // ignore
+      }
     }
   }
 

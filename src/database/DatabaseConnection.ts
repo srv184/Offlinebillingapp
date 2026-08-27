@@ -14,6 +14,7 @@ export class DatabaseConnection {
   readonly label: 'primary' | 'secondary';
   readonly directory: string;
   readonly filename: string;
+  public lastError: string | null = null;
   private db: SQLite.SQLiteDatabase | null = null;
 
   constructor(label: 'primary' | 'secondary', directory: string, filename: string) {
@@ -115,9 +116,8 @@ export class DatabaseConnection {
    */
   async checkHealth(): Promise<DatabaseHealth> {
     try {
-      const fileInfo = await FileSystem.getInfoAsync(this.fullFilePath);
-      if (!fileInfo.exists) {
-        return { ok: false, reason: 'file_missing' };
+      if (!this.db) {
+        return { ok: false, reason: this.lastError ?? 'not_opened' };
       }
       const db = this.getHandle();
       const integrityRows = await db.getAllAsync<{ integrity_check: string }>(
